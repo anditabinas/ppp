@@ -1,90 +1,116 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-	<title>Pantawid Beneficiary Map</title>
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   
-   <style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		#map {
-			width: 600px;
-			height: 400px;
-		}
-	</style>
-	
-	<style>#map { width: 800px; height: 500px; }
-.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+  <meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <title>Pantawid Beneficiary Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+    
+    #map {
+      width: 600px;
+      height: 400px;
+    }
+  </style>
+
+  <style>
+    #map {
+      width: 800px;
+      height: 500px;
+    }
+    
+    .info {
+      padding: 6px 8px;
+      font: 14px/16px Arial, Helvetica, sans-serif;
+      background: white;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+    
+    .info h4 {
+      margin: 0 0 5px;
+      color: #777;
+    }
+    
+    .legend {
+      text-align: left;
+      line-height: 18px;
+      color: #555;
+    }
+    
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
-   
+
 <body>
-   
-<div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
+  <div id="map"></div>
 
- <script type="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 
-<script type="text/javascript" src="pantawid_pamilyang_pilipino_.json"></script>
+  <script type="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script type="text/javascript">
- 
-	var map = L.map('map').setView([12.51166, 122.08007], 13);
-		
-	var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-		attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox<\/a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap<\/a> contributors',
-		subdomains: 'abcd',
-		maxZoom: 19
-	});
-	Mapbox.addTo(map);
-		
-	$.getJSON('pppp.geojson', function (data) {
-		L.geoJSONdata).addTo(map);
-	};
-	
-	
-	var datalater = L.geoJson(data, {
-		onEachFeature: function(feature, featureLayer) {
-		featureLayer.bindPopup(feature.properties.pppp_2018);
-		}
-	}).addTo(map);
-	map.fitBounds(datalayer.getBounds());
-			
-	function getColor(d) {
-		return	d > 10000	?	'#FC4E2A' :
-				d > 5000	?	'#FD8D3C' :
-				d > 1000	?	'#FEB24C' :
-				d > 1		?	'#FED976' :
-									'#FFEDA0';
-	}
-		
-	function style(feature) {
-		return {
-			fillColor: getColor(feature.properties.pppp_2018),
-			weight: 2,
-			opacity: 1,
-			color: 'white',
-			dashArray: '3',
-			fillOpacity: 0.7
-		};
-	}
-		
-	L.geojson(geojson, {style: style}).addTo(map);
-		
-		
-</script>
+
+  <script type="text/javascript" src="pppp.geojson"></script>
+
+  <script type="text/javascript">
+    var map = L.map('map').setView([12.51166, 122.08007], 13);
+
+    var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
+      attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox<\/a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap<\/a> contributors',
+      subdomains: 'abcd',
+      maxZoom: 19
+    });
+    Mapbox.addTo(map);
+
+    $.getJSON('pppp.geojson', function(data) {
+        L.geoJSONdata).addTo(map);
+    };
+
+
+    var datalater = L.geoJson(data, {
+      onEachFeature: function(feature, featureLayer) {
+        featureLayer.bindPopup(feature.properties.pppp_2018);
+      }
+    }).addTo(map);
+    map.fitBounds(datalayer.getBounds());
+
+    function getColor(d) {
+      return d > 10000 ? '#FC4E2A' :
+        d > 5000 ? '#FD8D3C' :
+        d > 1000 ? '#FEB24C' :
+        d > 1 ? '#FED976' :
+        '#FFEDA0';
+    }
+
+    function style(feature) {
+      return {
+        fillColor: getColor(feature.properties.pppp_2018),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+      };
+    }
+
+    L.geojson(geojson, {
+      style: style
+    }).addTo(map);
+  </script>
 </body>
-</html>		
-			
-			
-		
-		
+
+</html>
